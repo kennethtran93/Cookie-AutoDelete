@@ -54,6 +54,7 @@ jobs:
             echo "executing $GH_API_REPO/actions/runs/$GITHUB_RUN_ID/cancel"
             CXL_RES=$(curl -s -X POST -u octocat:$GH_TOKEN $GH_API_REPO/actions/runs/$GITHUB_RUN_ID/cancel)
             echo "Body Response: $CXL_RES"
+            sleep 5
           fi
           printenv
   all_jobs:
