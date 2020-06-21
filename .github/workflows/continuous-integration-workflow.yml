@@ -40,7 +40,6 @@ jobs:
           SKIP_A=$([[ "$REF" == l10n_* ]] && echo true || echo false)
           echo "Starts With l10n_ :  $SKIP_A"
           GH_API=${GH_API/'{/sha}'/}
-          echo "API: $GH_API"
           CM=$(curl -s $GH_API/$GH_SHA | jq -r '.commit.message')
           echo "Commit Message: $CM"
           EXP_SKIP="\[ci skip]"
@@ -49,13 +48,6 @@ jobs:
           RES=$([[ $SKIP_A || $SKIP_B ]] && echo true || echo false)
           echo "Skip CI:  $RES"
           echo "::set-output name=result::$RES"
-          if [[ $RES ]]; then
-            GH_API_REPO=${GH_API/'/commits'/}
-            echo "executing $GH_API_REPO/actions/runs/$GITHUB_RUN_ID/cancel"
-            CXL_RES=$(curl -s -X POST -u octocat:$GH_TOKEN $GH_API_REPO/actions/runs/$GITHUB_RUN_ID/cancel)
-            echo "Body Response: $CXL_RES"
-            sleep 5
-          fi
           printenv
   all_jobs:
     name: Tests, Builds, Coverage
