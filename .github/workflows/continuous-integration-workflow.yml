@@ -52,7 +52,7 @@ jobs:
           if [[ $RES ]]; then
             GH_API_REPO=${GH_API/'/commits'/}
             echo "executing $GH_API_REPO/actions/runs/$GITHUB_RUN_ID/cancel"
-            CXL_RES=$(curl -s -x POST -u octocat:$GH_TOKEN $GH_API_REPO/actions/runs/$GITHUB_RUN_ID/cancel)
+            CXL_RES=$(curl -v -x POST -u octocat:$GH_TOKEN $GH_API_REPO/actions/runs/$GITHUB_RUN_ID/cancel)
             echo "Body Response: $CXL_RES"
           fi
           printenv
