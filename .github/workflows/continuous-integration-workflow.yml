@@ -48,7 +48,10 @@ jobs:
           RES=$([[ $SKIP_A || $SKIP_B ]] && echo true || echo false)
           echo "Skip CI:  $RES"
           echo "::set-output name=result::$RES"
+          GH_API_REPO=${GH_API/'/commits'/}
+          echo $GH_API_REPO
           printenv
+
   all_jobs:
     name: Tests, Builds, Coverage
     runs-on: ubuntu-latest
