@@ -104,6 +104,15 @@ jobs:
           fail_ci_if_error: false
           file: ./coverage/*
           token: ${{ secrets.CODECOV_TOKEN }} # Optional as it is open source repo
+      - name: Codecov.io NEW Bash Coverage Upload Test
+        uses: kennethtran93/codecov-action@bash_args
+        with:
+          fail_ci_if_error: false
+          file: ./coverage/*
+          token: ${{ secrets.CODECOV_TOKEN }}
+          bash_args: |
+            -P ${{ github.event.pull_request.number }}
+            -v
       - name: Codecov.io Alternative Coverage Upload
         if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
         env:
